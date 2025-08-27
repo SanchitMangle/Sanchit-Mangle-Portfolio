@@ -1,0 +1,41 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SM logo">
+  <defs>
+    <linearGradient id="g-main" x1="8" y1="56" x2="56" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#646CFF"/>
+      <stop offset="1" stop-color="#FFCA28"/>
+    </linearGradient>
+    <linearGradient id="g-sheen" x1="20" y1="10" x2="44" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="g-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32 36) rotate(90) scale(26)">
+      <stop offset="0" stop-color="#FFD166" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFD166" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="f-shadow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+    <mask id="m-badge">
+      <rect x="0" y="0" width="64" height="64" fill="black"/>
+      <path d="M32 6 L54 18 L54 46 L32 58 L10 46 L10 18 Z" fill="white"/>
+    </mask>
+    <style>
+      @font-face { font-family: system-ui; src: local("Inter"), local("Segoe UI"), local("Roboto"); }
+      .mono { font: 700 22px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif; letter-spacing: 0.5px; }
+      @media (prefers-color-scheme: dark) {
+        #badge { opacity: 0.96; }
+      }
+    </style>
+  </defs>
+  <g mask="url(#m-badge)">
+    <ellipse cx="32" cy="40" rx="26" ry="18" fill="url(#g-glow)"/>
+  </g>
+  <g filter="url(#f-shadow)" id="badge">
+    <path d="M32 6 L54 18 L54 46 L32 58 L10 46 L10 18 Z" fill="url(#g-main)"/>
+    <path d="M12 20 C24 10, 40 10, 52 20 L52 26 C40 18, 24 18, 12 26 Z" fill="url(#g-sheen)" />
+  </g>
+  <path d="M32 14 L48 22 V42 L32 50 L16 42 V22 Z" fill="rgba(0,0,0,0.15)"/>
+  <g transform="translate(32 34)">
+    <text class="mono" text-anchor="middle" dominant-baseline="middle" fill="#FFFFFF">SM</text>
+  </g>
+</svg>
