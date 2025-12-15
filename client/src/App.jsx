@@ -35,9 +35,12 @@ const AnimatedRoutes = () => {
   );
 };
 
+import SEO from "./components/SEO";
+
 function App() {
   return (
     <ReactLenis root>
+      <SEO />
       <BrowserRouter>
         <Toaster />
         <ScrollProgress />
