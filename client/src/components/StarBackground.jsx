@@ -9,7 +9,9 @@ export const StarBackground = () => {
 
   useEffect(() => {
     generateStars();
-    generateMeteors();
+    // Removed overly playful meteors, or keep them very subtle if requested. 
+    // User asked for "No playful motion", so removing meteors to be safe and professional.
+    // generateMeteors(); 
 
     const handleResize = () => {
       generateStars();
@@ -22,7 +24,7 @@ export const StarBackground = () => {
 
   const generateStars = () => {
     const numberOfStars = Math.floor(
-      (window.innerWidth * window.innerHeight) / 10000
+      (window.innerWidth * window.innerHeight) / 15000 // Reduced density for cleaner look
     );
 
     const newStars = [];
@@ -30,33 +32,15 @@ export const StarBackground = () => {
     for (let i = 0; i < numberOfStars; i++) {
       newStars.push({
         id: i,
-        size: Math.random() * 3 + 1,
+        size: Math.random() * 2 + 1, // Smaller stars
         x: Math.random() * 100,
         y: Math.random() * 100,
-        opacity: Math.random() * 0.5 + 0.5,
-        animationDuration: Math.random() * 4 + 2,
+        opacity: Math.random() * 0.3 + 0.1, // Dimmer stars
+        animationDuration: Math.random() * 5 + 5, // Slower pulse
       });
     }
 
     setStars(newStars);
-  };
-
-  const generateMeteors = () => {
-    const numberOfMeteors = 4;
-    const newMeteors = [];
-
-    for (let i = 0; i < numberOfMeteors; i++) {
-      newMeteors.push({
-        id: i,
-        size: Math.random() * 2 + 1,
-        x: Math.random() * 100,
-        y: Math.random() * 20,
-        delay: Math.random() * 15,
-        animationDuration: Math.random() * 3 + 3,
-      });
-    }
-
-    setMeteors(newMeteors);
   };
 
   return (
@@ -64,32 +48,18 @@ export const StarBackground = () => {
       {stars.map((star) => (
         <div
           key={star.id}
-          className="star animate-pulse-subtle"
+          className="absolute bg-slate-300 rounded-full"
           style={{
             width: star.size + "px",
             height: star.size + "px",
             left: star.x + "%",
             top: star.y + "%",
             opacity: star.opacity,
-            animationDuration: star.animationDuration + "s",
+            // transition: "opacity 1s ease-in-out", // Simple CSS transition if needed, or stick to static for "Calm"
           }}
         />
       ))}
-
-      {meteors.map((meteor) => (
-        <div
-          key={meteor.id}
-          className="meteor animate-meteor"
-          style={{
-            width: meteor.size * 50 + "px",
-            height: meteor.size * 2 + "px",
-            left: meteor.x + "%",
-            top: meteor.y + "%",
-            animationDelay: meteor.delay,
-            animationDuration: meteor.animationDuration + "s",
-          }}
-        />
-      ))}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background pointer-events-none" />
     </div>
   );
 };

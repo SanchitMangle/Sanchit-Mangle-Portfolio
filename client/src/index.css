@@ -1,162 +1,266 @@
 @import "tailwindcss";
 
 @theme {
+  /* Deep Obsidian Color Palette - Mapped to CSS Variables */
   --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
 
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
   --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
-  --animate-fade-in: fade-in 0.7s ease-out forwards;
-  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
-  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
-  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
-  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
-  --animate-meteor: meteor 5s linear infinite;
+  /* Animation Keyframes */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-fade-up: fade-up 0.8s ease-out forwards;
+  --animate-slide-in-right: slide-in-right 0.5s ease-out forwards;
+  --animate-slide-in-left: slide-in-left 0.5s ease-out forwards;
+  --animate-spotlight: spotlight 2s ease .75s 1 forwards;
+  --animate-shine: shine 8s ease-in-out infinite;
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
+  @keyframes accordion-down {
+    from {
+      height: 0;
     }
-    50% {
-      transform: translateY(-10px);
+
+    to {
+      height: var(--radix-accordion-content-height);
     }
   }
-  @keyframes pulse-subtle {
-    0%,
-    100% {
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
       opacity: 1;
     }
-    50% {
-      opacity: 0.8;
-    }
   }
-  @keyframes fade-in {
+
+  @keyframes fade-up {
     from {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  @keyframes meteor {
-    0% {
-      transform: rotate(215deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(215deg) translateX(-500px);
+
+  @keyframes slide-in-right {
+    from {
       opacity: 0;
+      transform: translateX(20px);
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes spotlight {
+    0% {
+      opacity: 0;
+      transform: translate(-72%, -62%) scale(0.5);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -40%) scale(1);
+    }
+  }
+
+  @keyframes shine {
+    from {
+      background-position: 0 0;
+    }
+
+    to {
+      background-position: -200% 0;
     }
   }
 }
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    /* Light Mode */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --border: 214 32% 91%;
+    --primary: 200 100% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 260 100% 70%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 200 100% 45%;
+
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
+    /* Deep Obsidian Dark Mode */
+    --background: 0 0% 0%;
+    --foreground: 220 50% 96%;
 
-    --card: 222 47% 8%;
+    --card: 220 40% 4%;
+    --card-foreground: 220 50% 96%;
 
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
+    --popover: 220 40% 4%;
+    --popover-foreground: 220 50% 96%;
 
-    --border: 217 33% 20%;
+    --primary: 200 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 260 100% 65%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 20% 10%;
+    --muted-foreground: 220 20% 60%;
+
+    --accent: 220 20% 14%;
+    --accent-foreground: 220 50% 96%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 12%;
+    --input: 220 20% 12%;
+    --ring: 200 100% 50%;
   }
 
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
 
   html {
-    @apply scroll-smooth;
+    @apply antialiased scroll-smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground tracking-tight;
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  }
+
+  /* Selection Color */
+  ::selection {
+    @apply bg-primary/20 text-primary;
   }
 }
 
 @utility container {
   margin-inline: auto;
-  padding-inline: 2rem;
+  padding-inline: 1.5rem;
 
-  @media (width >= 640px) {
+  @media (min-width: 640px) {
     max-width: 640px;
   }
-  @media (width >= 768px) {
+
+  @media (min-width: 768px) {
     max-width: 768px;
   }
-  @media (width >= 1024px) {
+
+  @media (min-width: 1024px) {
     max-width: 1024px;
   }
-  @media (width >= 1280px) {
+
+  @media (min-width: 1280px) {
     max-width: 1280px;
   }
-  @media (width >= 1400px) {
+
+  @media (min-width: 1536px) {
     max-width: 1400px;
   }
 }
 
-@utility text-glow {
-  @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+/* Glassmorphism Utilities */
+@utility glass {
+  @apply backdrop-blur-xl bg-background/50 border border-border/50 shadow-2xl;
 }
 
-@utility card-hover {
-  @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
+@utility glass-card {
+  @apply relative overflow-hidden backdrop-blur-2xl bg-gradient-to-br from-background/80 to-background/40 border border-border/50 shadow-2xl;
 }
 
-@utility gradient-border {
-  @apply relative rounded-md;
-  background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
-  background-clip: padding-box;
-  border: 1px solid transparent;
+@utility glass-card-hover {
+  @apply hover:bg-background/90 hover:border-primary/20 hover:shadow-primary/5 transition-all duration-300;
 }
 
-@utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-         hover:scale-105 active:scale-95;
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/80 to-foreground/60;
 }
 
-@utility star {
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+@utility text-gradient-primary {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-400 to-secondary;
 }
 
-@utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+@utility flex-center {
+  @apply flex items-center justify-center;
 }
 
-#root {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
+@utility absolute-center {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }

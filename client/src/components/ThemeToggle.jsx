@@ -1,44 +1,71 @@
 import React, { useEffect, useState } from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { cn } from '../lib/utils.js'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const ThemeToggle = () => {
-
-    const [isDarkMode, setIsDarkMode] = useState(false)
+    const [theme, setTheme] = useState('dark')
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme')
-        if (storedTheme == 'dark') {
-            setIsDarkMode(true)
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+
+        if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
+            setTheme('dark')
             document.documentElement.classList.add('dark')
+            document.documentElement.classList.remove('light')
         } else {
-            localStorage.setItem('theme', 'light')
-            setIsDarkMode(false)
+            setTheme('light')
+            document.documentElement.classList.remove('dark')
+            document.documentElement.classList.add('light')
         }
     }, [])
 
     const toggleTheme = () => {
-        if (isDarkMode) {
-            document.documentElement.classList.remove('dark')
-            localStorage.setItem('theme', 'light')
-            setIsDarkMode(false)
-        }
-        else {
+        const newTheme = theme === 'dark' ? 'light' : 'dark'
+        setTheme(newTheme)
+
+        if (newTheme === 'dark') {
             document.documentElement.classList.add('dark')
-            localStorage.setItem('theme', 'dark')
-            setIsDarkMode(true)
+            document.documentElement.classList.remove('light')
+        } else {
+            document.documentElement.classList.remove('dark')
+            document.documentElement.classList.add('light')
         }
+
+        localStorage.setItem('theme', newTheme)
     }
 
     return (
-        <button className={cn(
-            "fixed max-sm:hidden top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
-            "focus:outlin-hidden"
-        )}
-            onClick={toggleTheme}>{
-                isDarkMode ? <Sun className='w-6 h-6 text-yellow-300' />
-                    : <Moon className='w-6 h-6 text-blue-900' />
-            }</button>
+        <button
+            className={cn(
+                "p-2.5 rounded-full transition-all duration-300 relative border border-white/10 overflow-hidden group",
+                theme === 'dark'
+                    ? "bg-white/5 hover:bg-white/10 text-primary"
+                    : "bg-black/5 hover:bg-black/10 text-amber-500"
+            )}
+            onClick={toggleTheme}
+            aria-label="Toggle Theme"
+        >
+            <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                    key={theme}
+                    initial={{ y: -20, opacity: 0, rotate: -90 }}
+                    animate={{ y: 0, opacity: 1, rotate: 0 }}
+                    exit={{ y: 20, opacity: 0, rotate: 90 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    {theme === 'dark' ? (
+                        <Moon className='w-5 h-5' fill="currentColor" />
+                    ) : (
+                        <Sun className='w-5 h-5' fill="currentColor" />
+                    )}
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Hover Glow Effect */}
+            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary/10 blur-xl" />
+        </button>
     )
 }
 

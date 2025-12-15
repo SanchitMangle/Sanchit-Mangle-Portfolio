@@ -1,0 +1,6 @@
+/* 
+  This file previously contained fixed positioning overrides that conflicted 
+  with Framer Motion animations. It has been cleared to allow the new 
+  Navbar.jsx implementation to handle positioning and animations 
+  programmatically.
+*/
