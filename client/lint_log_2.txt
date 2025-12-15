@@ -1,0 +1,13 @@
+﻿
+> client@0.0.0 lint
+> eslint .
+
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\ContactSection.jsx
+  77:14  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\Navbar.jsx
+  133:22  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+Γ£û 2 problems (2 errors, 0 warnings)
+

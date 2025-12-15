@@ -74,7 +74,7 @@ export const ContactSection = () => {
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
             Have a project in mind or want to collaborate? Feel free to reach out.
-            I'm always open to discussing new opportunities.
+            I&apos;m always open to discussing new opportunities.
           </p>
         </motion.div>
 

@@ -1,0 +1,60 @@
+﻿
+> client@0.0.0 lint
+> eslint .
+
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\App.jsx
+  6:27  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\AboutSection.jsx
+  1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\AnimatedBackground.jsx
+  1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                     no-unused-vars
+  9:11  error  'gradientPosition' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\Background.jsx
+  1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\ContactSection.jsx
+  14:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\HeroSection.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\Navbar.jsx
+  4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\ProjectSection.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u        no-unused-vars
+  2:18  error  'useScroll' is defined but never used. Allowed unused vars must match /^[A-Z_]/u     no-unused-vars
+  2:29  error  'useTransform' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\SkillSection.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\StarBackground.jsx
+  8:10  error  'meteors' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u     no-unused-vars
+  8:19  error  'setMeteors' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\ThemeToggle.jsx
+  4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\TimelineSection.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\ui\CustomCursor.jsx
+   2:10  error    'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                             no-unused-vars
+  34:8   warning  React Hook useEffect has missing dependencies: 'mouseX' and 'mouseY'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\ui\MagneticButton.jsx
+  1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\src\components\ui\ScrollProgress.jsx
+  1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\MyVolume\PROJECTS\Sanchit Mangle Portfolio\client\vite.config.js
+  15:25  error  '__dirname' is not defined  no-undef
+
+Γ£û 21 problems (20 errors, 1 warning)
+

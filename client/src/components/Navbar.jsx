@@ -130,7 +130,7 @@ export const Navbar = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Let's Talk <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  Let&apos;s Talk <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute inset-0 bg-white opacity-100 group-hover:opacity-0 transition-opacity duration-300" />

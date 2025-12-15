@@ -6,7 +6,7 @@ export const AnimatedBackground = () => {
     const { scrollYProgress } = useScroll();
 
     // Scroll-responsive transformations
-    const gradientPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+    // const gradientPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
     const meshOpacity1 = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.08, 0.12, 0.08, 0.06]);
     const meshOpacity2 = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.06, 0.04, 0.08, 0.06]);
     const glowIntensity = useTransform(scrollYProgress, [0, 0.5, 1], [0.15, 0.08, 0.05]);

@@ -1,5 +1,5 @@
 import { ExternalLink, Github, ArrowRight, Layers } from "lucide-react";
-import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
 
