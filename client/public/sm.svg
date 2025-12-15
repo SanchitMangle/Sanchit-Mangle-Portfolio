@@ -3,18 +3,18 @@
     <!-- Theme-aware gradients using CSS variables -->
     <linearGradient id="g-main" x1="8" y1="56" x2="56" y2="8" gradientUnits="userSpaceOnUse">
       <stop offset="0" style="stop-color: var(--primary-color, #0EA5E9)"/>
-      <stop offset="1" style="stop-color: var(--accent-color, #38BDF8)"/>
+      <stop offset="1" style="stop-color: var(--accent-color, #8b5cf6)"/>
     </linearGradient>
     <linearGradient id="g-sheen" x1="20" y1="10" x2="44" y2="36" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.4"/>
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.5"/>
       <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
     <radialGradient id="g-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32 36) rotate(90) scale(26)">
-      <stop offset="0" style="stop-color: var(--primary-color, #0EA5E9)" stop-opacity="0.25"/>
+      <stop offset="0" style="stop-color: var(--primary-color, #0EA5E9)" stop-opacity="0.3"/>
       <stop offset="1" style="stop-color: var(--primary-color, #0EA5E9)" stop-opacity="0"/>
     </radialGradient>
     <filter id="f-shadow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.2"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="var(--shadow-color, #000)" flood-opacity="0.3"/>
     </filter>
     <mask id="m-badge">
       <rect x="0" y="0" width="64" height="64" fill="black"/>
@@ -30,52 +30,56 @@
       /* Logo text styling */
       .mono { 
         font: 700 22px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif; 
-        letter-spacing: 0.5px; 
+        letter-spacing: 1px; 
       }
       
-      /* Theme-aware colors */
+      /* Theme-aware colors - Deep Obsidian/Antigravity Defaults */
       :root {
-        --primary-color: #0EA5E9;
-        --accent-color: #38BDF8;
+        /* Default to Dark Mode / Deep Obsidian values */
+        --primary-color: hsl(200, 100%, 50%); /* Sky Blue */
+        --accent-color: hsl(260, 100%, 65%);  /* Purple */
         --text-color: #FFFFFF;
+        --shadow-color: #000000;
       }
       
-      /* Dark mode adjustments */
+      /* Dark mode adjustments (redundant if default is dark, but good for explicit systems) */
       @media (prefers-color-scheme: dark) {
         :root {
-          --primary-color: #0EA5E9;
-          --accent-color: #38BDF8;
+          --primary-color: hsl(200, 100%, 50%);
+          --accent-color: hsl(260, 100%, 65%);
           --text-color: #FFFFFF;
+          --shadow-color: #000000;
         }
-        #badge { opacity: 0.96; }
       }
       
       /* Light mode adjustments */
       @media (prefers-color-scheme: light) {
         :root {
-          --primary-color: #0EA5E9;
-          --accent-color: #0284C7;
+          --primary-color: hsl(200, 100%, 45%);
+          --accent-color: hsl(260, 100%, 70%);
           --text-color: #FFFFFF;
+          --shadow-color: #000000;
         }
-        #badge { opacity: 1; }
-        #inner-shadow { opacity: 0.2; }
       }
     </style>
   </defs>
   
-  <!-- Glow effect -->
+  <!-- Glow effect behind badge -->
   <g mask="url(#m-badge)">
     <ellipse cx="32" cy="40" rx="26" ry="18" fill="url(#g-glow)"/>
   </g>
   
   <!-- Main badge with shadow -->
   <g filter="url(#f-shadow)" id="badge">
+    <!-- Background shape -->
     <path d="M32 6 L54 18 L54 46 L32 58 L10 46 L10 18 Z" fill="url(#g-main)"/>
-    <path d="M12 20 C24 10, 40 10, 52 20 L52 26 C40 18, 24 18, 12 26 Z" fill="url(#g-sheen)" />
+    
+    <!-- Glass sheen effect -->
+    <path d="M12 20 C24 10, 40 10, 52 20 L52 28 C40 16, 24 16, 12 28 Z" fill="url(#g-sheen)" />
   </g>
   
-  <!-- Inner shadow for depth -->
-  <path id="inner-shadow" d="M32 14 L48 22 V42 L32 50 L16 42 V22 Z" fill="rgba(0,0,0,0.15)"/>
+  <!-- Depth Shadow (Inner) -->
+  <path id="inner-shadow" d="M32 14 L48 22 V42 L32 50 L16 42 V22 Z" fill="black" fill-opacity="0.2"/>
   
   <!-- Logo text -->
   <g transform="translate(32 34)">
