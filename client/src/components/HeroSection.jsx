@@ -1,6 +1,8 @@
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "./ui/MagneticButton";
+import { ResumeDownloadButton } from "./ResumeDownloadButton";
+
 
 export const HeroSection = () => {
     return (
@@ -94,6 +96,7 @@ export const HeroSection = () => {
                                 </span>
                             </a>
                         </MagneticButton>
+                        <ResumeDownloadButton />
                         <MagneticButton>
                             <a
                                 href="#contact"
