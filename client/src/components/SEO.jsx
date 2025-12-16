@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({ title, description, keywords, image, url }) => {
-    const siteTitle = 'Sanchit Mangle | Principal Designer & Developer';
-    const defaultDescription = 'Portfolio of Sanchit Mangle, a Principal Designer and Developer specializing in creating premium, interactive, and modern web experiences.';
-    const defaultKeywords = 'Sanchit Mangle, Portfolio, Principal Designer, Web Developer, React, Next.js, UI/UX, Frontend Developer';
+    const siteTitle = 'Sanchit Mangle |Fullstack Developer';
+    const defaultDescription = 'Portfolio of Sanchit Mangle, a Fullstack Developer specializing in creating premium, interactive, and modern web experiences.';
+    const defaultKeywords = 'Sanchit Mangle, Portfolio, Fullstack Developer, Web Developer, React, Next.js, UI/UX, Frontend Developer, Backend Developer, Fullstack Developer';
     const siteUrl = 'https://sanchit-mangle-portfolio.vercel.app';
     const defaultImage = '/og-image.png'; // Assuming you might have one, or we can use a screenshot later. 
 
