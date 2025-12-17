@@ -46,7 +46,7 @@ const projects = [
     description: "A real-time chat application built with MERN stack and Socket.IO for instant messaging. Messages delivered instantly without page reloads.",
     image: "/projects/project5.png",
     tags: ["React", "TailwindCSS", "Node.js", "Express", "Socket.IO"],
-    demoUrl: "https://job-portal-web-application-client-two.vercel.app/",
+    demoUrl: "https://chat-app-weld-six-85.vercel.app/",
     githubUrl: "https://github.com/SanchitMangle/Chat-App",
   },
   {
