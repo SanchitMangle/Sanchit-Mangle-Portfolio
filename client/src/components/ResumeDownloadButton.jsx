@@ -1,11 +1,25 @@
 import { motion } from "framer-motion";
 import { FileText, Download, Check } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MagneticButton } from "./ui/MagneticButton";
+import api from "../api/axios";
 
 export const ResumeDownloadButton = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [isDownloaded, setIsDownloaded] = useState(false);
+    const [resumeUrl, setResumeUrl] = useState("/resume.pdf");
+
+    useEffect(() => {
+        const fetchResume = async () => {
+            try {
+                const { data } = await api.get("/profile");
+                if (data.resumeUrl) setResumeUrl(data.resumeUrl);
+            } catch (error) {
+                console.error("Failed to fetch resume settings");
+            }
+        };
+        fetchResume();
+    }, []);
 
     const handleDownload = () => {
         setIsDownloaded(true);
@@ -15,7 +29,7 @@ export const ResumeDownloadButton = () => {
     return (
         <MagneticButton>
             <a
-                href="/resume.pdf"
+                href={resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleDownload}

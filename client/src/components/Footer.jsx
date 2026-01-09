@@ -1,5 +1,6 @@
 import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
 import { MagneticButton } from "./ui/MagneticButton";
+import { ResumeDownloadButton } from "./ResumeDownloadButton";
 
 export const Footer = () => {
   const scrollToTop = () => {
@@ -51,6 +52,8 @@ export const Footer = () => {
             <p className="text-xs text-muted-foreground/40 order-2 md:order-1">
               &copy; {new Date().getFullYear()} Sanchit Mangle. All rights reserved.
             </p>
+
+            <ResumeDownloadButton />
 
             <MagneticButton>
               <button

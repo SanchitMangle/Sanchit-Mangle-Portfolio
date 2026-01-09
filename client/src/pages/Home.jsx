@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ThemeToggle from '../components/ThemeToggle'
 import { HeroSection } from '../components/HeroSection'
 import { AboutSection } from '../components/AboutSection'
-import { SkillsSection } from '../components/SkillSection'
-import { ProjectsSection } from '../components/ProjectSection'
-import { TimelineSection } from '../components/TimelineSection'
-import { ContactSection } from '../components/ContactSection'
 import { Footer } from '../components/Footer'
+
+// Lazy Load heavy sections
+const SkillsSection = React.lazy(() => import('../components/SkillSection').then(module => ({ default: module.SkillsSection })));
+const ProjectsSection = React.lazy(() => import('../components/ProjectSection').then(module => ({ default: module.ProjectsSection })));
+const TimelineSection = React.lazy(() => import('../components/TimelineSection').then(module => ({ default: module.TimelineSection })));
+const ContactSection = React.lazy(() => import('../components/ContactSection').then(module => ({ default: module.ContactSection })));
 
 const Home = () => {
   return (
@@ -16,10 +18,13 @@ const Home = () => {
         <main className="pt-20">
           <HeroSection />
           <AboutSection />
-          <SkillsSection />
-          <ProjectsSection />
-          <TimelineSection />
-          <ContactSection />
+
+          <Suspense fallback={<div className="h-96 flex items-center justify-center text-muted-foreground">Loading...</div>}>
+            <SkillsSection />
+            <ProjectsSection />
+            <TimelineSection />
+            <ContactSection />
+          </Suspense>
         </main>
 
         {/* Footer */}

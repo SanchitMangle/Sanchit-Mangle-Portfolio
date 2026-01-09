@@ -1,7 +1,25 @@
 import { motion } from "framer-motion";
 import { User, Code2, Globe, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import api from "../api/axios";
 
 export const AboutSection = () => {
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const { data } = await api.get("/profile");
+                setProfile(data);
+            } catch (error) {
+                console.error("Failed to fetch profile");
+            }
+        }
+        fetchProfile();
+    }, []);
+
+    if (!profile) return null; // Or a skeleton loader
+
     return (
         <section id="about" className="relative py-16 px-6 overflow-hidden">
             {/* Decorative Background Elements */}
@@ -17,7 +35,7 @@ export const AboutSection = () => {
                 >
                     <span className="text-sm font-semibold tracking-widest text-primary uppercase mb-3">Who I Am</span>
                     <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-                        Passionate about <span className="text-gradient">building the future</span>
+                        {profile.aboutTitle.split(" ").slice(0, 2).join(" ")} <span className="text-gradient">{profile.aboutTitle.split(" ").slice(2).join(" ")}</span>
                     </h2>
                     <div className="h-1 w-20 bg-primary rounded-full" />
                 </motion.div>
@@ -30,12 +48,9 @@ export const AboutSection = () => {
                             <User className="text-primary" /> About Me
                         </h3>
                         <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
-                            <p>
-                                I am a dedicated full-stack developer with a deep passion for creating intuitive and dynamic user experiences. My journey in tech is driven by a curiosity to understand how things work and a desire to build solutions that make a difference.
-                            </p>
-                            <p>
-                                With expertise in modern web technologies, I specialize in transforming complex problems into elegant, efficient code. I believe in the power of clean design and robust engineering working in harmony.
-                            </p>
+                            {profile.aboutBio.map((paragraph, index) => (
+                                <p key={index}>{paragraph}</p>
+                            ))}
                         </div>
                     </div>
 

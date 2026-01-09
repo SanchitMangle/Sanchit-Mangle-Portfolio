@@ -2,63 +2,7 @@ import { ExternalLink, Github, ArrowRight, Layers } from "lucide-react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
-
-const projects = [
-  {
-    id: 1,
-    title: "QuickGpt AI-Chatbot",
-    description: "An AI Chatbot using MERN-Stack where we can generate images and ask questions to the AI assistant.",
-    image: "/projects/project1.png",
-    tags: ["React", "TailwindCSS", "Node.js", "Express", "MongoDB"],
-    demoUrl: "https://ai-chat-bot-omega-beige.vercel.app/",
-    githubUrl: "https://github.com/SanchitMangle/AI-ChatBot",
-  },
-  {
-    id: 2,
-    title: "QuickBlog - AI Powered Blogging Platform",
-    description: "A full-stack Blogging Platform built using MERN Stack. QuickBlog allows users to explore, read, and interact with blogs, while Admins can publish and manage content with AI-powered generation.",
-    image: "/projects/project2.png",
-    tags: ["React", "TailwindCSS", "Node.js", "Express", "MongoDB"],
-    demoUrl: "https://quick-blog-frontend-three.vercel.app/",
-    githubUrl: "https://github.com/SanchitMangle/QuickBlog",
-  },
-  {
-    id: 3,
-    title: "Full-Stack Job Portal App",
-    description: "Full-featured job application app where users can apply to various jobs and recruiters can post jobs and manage applications.",
-    image: "/projects/project3.png",
-    tags: ["React", "TailwindCSS", "Node.js", "Express", "MongoDB"],
-    demoUrl: "https://job-portal-web-application-client-two.vercel.app/",
-    githubUrl: "https://github.com/SanchitMangle/Job-Portal-Web-Application",
-  },
-  {
-    id: 4,
-    title: "Full-Stack LMS Website",
-    description: "Full-featured Learning Management System where students can enroll using payment gateways and educators can add courses from dashboard.",
-    image: "/projects/project4.png",
-    tags: ["React", "TailwindCSS", "Node.js", "Express", "MongoDB"],
-    demoUrl: "https://lms-web-frontend.vercel.app/",
-    githubUrl: "https://github.com/SanchitMangle/LMS_Web",
-  },
-  {
-    id: 5,
-    title: "Real-time Chat Application",
-    description: "A real-time chat application built with MERN stack and Socket.IO for instant messaging. Messages delivered instantly without page reloads.",
-    image: "/projects/project5.png",
-    tags: ["React", "TailwindCSS", "Node.js", "Express", "Socket.IO"],
-    demoUrl: "https://chat-app-weld-six-85.vercel.app/",
-    githubUrl: "https://github.com/SanchitMangle/Chat-App",
-  },
-  {
-    id: 6,
-    title: "Full-Stack E-Commerce Website",
-    description: "An end-to-end online shopping platform with authentication, cart functionality, payment integration, and order tracking.",
-    image: "/projects/project6.png",
-    tags: ["React", "TailwindCSS", "Node.js", "Express", "MongoDB"],
-    demoUrl: "https://e-commerce-web-frontend-rdej.onrender.com/",
-    githubUrl: "https://github.com/SanchitMangle/E-Commerce-Web",
-  },
-];
+import api from "../api/axios";
 
 const ProjectCard = ({ project, index }) => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -133,25 +77,27 @@ const ProjectCard = ({ project, index }) => {
         />
 
         {/* Floating Action Button on Image */}
-        <div className="absolute top-4 right-4 z-20 translate-x-4 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100">
-          <a
-            href={project.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full",
-              "bg-white/95 text-slate-900 shadow-sm border border-slate-200/50",
-              "dark:bg-black/80 dark:text-white dark:border-white/10",
-              "backdrop-blur-md text-xs font-semibold",
-              "transition-all duration-300 hover:scale-105",
-              "hover:bg-primary hover:text-white hover:border-primary",
-            )}
-            title="View Live Demo"
-          >
-            <span>Live Preview</span>
-            <ExternalLink size={13} />
-          </a>
-        </div>
+        {project.demoUrl && (
+          <div className="absolute top-4 right-4 z-20 translate-x-4 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100">
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-full",
+                "bg-white/95 text-slate-900 shadow-sm border border-slate-200/50",
+                "dark:bg-black/80 dark:text-white dark:border-white/10",
+                "backdrop-blur-md text-xs font-semibold",
+                "transition-all duration-300 hover:scale-105",
+                "hover:bg-primary hover:text-white hover:border-primary",
+              )}
+              title="View Live Demo"
+            >
+              <span>Live Preview</span>
+              <ExternalLink size={13} />
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Content Section */}
@@ -191,32 +137,36 @@ const ProjectCard = ({ project, index }) => {
 
         {/* Buttons */}
         <div className="flex items-center gap-3 pt-4 mt-auto border-t border-border/50">
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl",
-              "bg-muted/50 hover:bg-muted text-sm font-medium transition-colors",
-              "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            <Github size={16} />
-            <span>Code</span>
-          </a>
-          <a
-            href={project.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl",
-              "bg-primary/10 hover:bg-primary/20 text-sm font-medium transition-colors",
-              "text-primary"
-            )}
-          >
-            <ExternalLink size={16} />
-            <span>Live Demo</span>
-          </a>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl",
+                "bg-muted/50 hover:bg-muted text-sm font-medium transition-colors",
+                "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Github size={16} />
+              <span>Code</span>
+            </a>
+          )}
+          {project.demoUrl && (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl",
+                "bg-primary/10 hover:bg-primary/20 text-sm font-medium transition-colors",
+                "text-primary"
+              )}
+            >
+              <ExternalLink size={16} />
+              <span>Live Demo</span>
+            </a>
+          )}
         </div>
       </div>
     </motion.div>
@@ -224,6 +174,22 @@ const ProjectCard = ({ project, index }) => {
 };
 
 export const ProjectsSection = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const { data } = await api.get("/projects");
+        setProjects(data);
+      } catch (error) {
+        console.error("Failed to fetch projects", error);
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  if (projects.length === 0) return null;
+
   return (
     <section id="projects" className="py-16 relative overflow-hidden bg-background">
       {/* Background Decor */}
@@ -272,7 +238,7 @@ export const ProjectsSection = () => {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard key={project._id} project={project} index={index} />
           ))}
         </div>
 

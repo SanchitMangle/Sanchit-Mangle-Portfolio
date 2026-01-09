@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
-import { Menu, X, ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { Menu, X, ArrowRight, Github, Linkedin, Mail, Lock, LayoutDashboard } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
@@ -15,7 +16,20 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { scrollY } = useScroll();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check auth status
+    const checkAuth = () => {
+      const userInfo = localStorage.getItem('userInfo');
+      setIsAuthenticated(!!userInfo);
+    };
+    checkAuth();
+    window.addEventListener('storage', checkAuth); // Listen for changes
+    return () => window.removeEventListener('storage', checkAuth);
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
@@ -58,6 +72,11 @@ export const Navbar = () => {
       });
       setIsMenuOpen(false);
     }
+  };
+
+  const handleAdminClick = () => {
+    navigate(isAuthenticated ? "/admin/dashboard" : "/admin/login");
+    setIsMenuOpen(false);
   };
 
   return (
@@ -122,6 +141,16 @@ export const Navbar = () => {
 
             <div className="flex items-center gap-3">
               <ThemeToggle />
+
+              {/* Admin Button - Minimal */}
+              <button
+                onClick={handleAdminClick}
+                className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-muted-foreground hover:text-primary transition-colors"
+                title={isAuthenticated ? "Go to Dashboard" : "Admin Login"}
+              >
+                {isAuthenticated ? <LayoutDashboard size={20} /> : <Lock size={20} />}
+              </button>
+
               <motion.a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
@@ -216,6 +245,18 @@ export const Navbar = () => {
                     </motion.a>
                   );
                 })}
+
+                {/* Mobile Admin Link */}
+                <motion.button
+                  onClick={handleAdminClick}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.25 }}
+                  className="flex items-center justify-between p-4 rounded-xl text-lg font-medium transition-all hover:bg-muted/50 text-muted-foreground hover:text-foreground"
+                >
+                  {isAuthenticated ? "Dashboard" : "Admin Login"}
+                  {isAuthenticated ? <LayoutDashboard size={20} /> : <Lock size={20} />}
+                </motion.button>
 
                 <motion.div
                   initial={{ opacity: 0 }}

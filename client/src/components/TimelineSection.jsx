@@ -1,45 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase, GraduationCap, Calendar, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const experienceData = [
-    {
-        id: 1,
-        type: "experience",
-        title: "Full Stack Developer Intern",
-        organization: "Axiomen Tech Solution",
-        period: "Sep. 2025 - Present",
-        location: "Chhatrapati Sambhajinagar, India",
-        description: [
-            "Developed and deployed scalable web applications using MERN stack (MongoDB, Express.js, React.js, Node.js)",
-            "Engineered responsive front-end components with React.js and optimized back-end services with Node.js and Express.js",
-            "Designed and integrated RESTful APIs and managed database systems including MongoDB",
-            "Collaborated with development team to enhance UI/UX performance and API integration",
-            "Practiced Agile methodologies and used Git/GitHub for version control in collaborative environment",
-        ],
-    },
-    {
-        id: 2,
-        type: "education",
-        title: "Full Stack Web Development Certificate",
-        organization: "Certification",
-        period: "August 2025",
-        location: "",
-        description: [],
-    },
-    {
-        id: 3,
-        type: "education",
-        title: "Bachelor of Technology in Electronics and Telecommunication Engineering",
-        organization: "Government College of Engineering",
-        period: "Dec. 2021 - Jun. 2025",
-        location: "Yavatmal, India",
-        description: [
-            "CGPA: 6.56/10.00",
-        ],
-    },
-];
+import api from "../api/axios";
 
 const TimelineCard = ({ item, index }) => {
     const isLeft = index % 2 === 0;
@@ -157,6 +120,21 @@ export const TimelineSection = () => {
     });
 
     const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+    const [experienceData, setExperienceData] = useState([]);
+
+    useEffect(() => {
+        const fetchTimeline = async () => {
+            try {
+                const { data } = await api.get("/timeline");
+                setExperienceData(data);
+            } catch (error) {
+                console.error("Failed to fetch timeline");
+            }
+        }
+        fetchTimeline();
+    }, []);
+
+    // if (experienceData.length === 0) return null;
 
     return (
         <section id="experience" className="py-24 md:py-32 relative overflow-hidden bg-background">
@@ -197,10 +175,14 @@ export const TimelineSection = () => {
                     </div>
 
                     {/* Timeline Items */}
-                    <div className="space-y-8 md:space-y-16 py-10">
-                        {experienceData.map((item, index) => (
-                            <TimelineCard key={item.id} item={item} index={index} />
-                        ))}
+                    <div className="space-y-8 md:space-y-16 py-10 min-h-[200px]">
+                        {experienceData.length === 0 ? (
+                            <div className="text-center text-muted-foreground">Loading exact path...</div>
+                        ) : (
+                            experienceData.map((item, index) => (
+                                <TimelineCard key={item._id} item={item} index={index} />
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
