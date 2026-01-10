@@ -53,6 +53,8 @@ app.use(cors({
     credentials: true
 }));
 
+app.use(express.json());
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
