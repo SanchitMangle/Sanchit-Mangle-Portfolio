@@ -43,7 +43,6 @@ app.use(cors({
         "http://localhost:5173",
         "http://localhost:5174",
         "http://127.0.0.1:5173",
-        "https://sanchit-mangle-portfolio-git-main-sanchitmangles-projects.vercel.app", // Deployed Frontend
         process.env.CLIENT_URL,
     ].filter(Boolean), // Filter out undefined values
     credentials: true
