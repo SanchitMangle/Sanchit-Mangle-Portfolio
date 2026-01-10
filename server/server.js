@@ -34,6 +34,7 @@ app.use(cors({
             "http://localhost:5173",
             "http://localhost:5174",
             "http://127.0.0.1:5173",
+            "https://sanchit-mangle-portfolio.vercel.app",
             "https://sanchit-mangle-portfolio-git-main-sanchitmangles-projects.vercel.app",
             process.env.CLIENT_URL
         ];
@@ -41,7 +42,7 @@ app.use(cors({
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
 
-        if (allowedOrigins.includes(origin)) {
+        if (allowedOrigins.includes(origin) || origin.match(/^https:\/\/sanchit-mangle-portfolio.*\.vercel\.app$/)) {
             return callback(null, true);
         } else {
             console.log("Blocked by CORS. Origin:", origin);
