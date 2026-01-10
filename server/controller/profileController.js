@@ -12,7 +12,12 @@ export const getProfile = async (req, res) => {
             res.status(404).json({ message: "Profile not found" });
         }
     } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+        console.error("Profile Fetch Error:", error);
+        res.status(500).json({
+            message: "Server Error",
+            error: error.message,
+            stack: process.env.NODE_ENV === 'production' ? null : error.stack
+        });
     }
 };
 
