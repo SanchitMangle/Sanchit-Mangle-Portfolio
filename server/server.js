@@ -53,7 +53,17 @@ app.use(cors({
     credentials: true
 }));
 
+// Security Configuration (Headers, Sanitization)
+configureSecurity(app);
+
+// Rate Limiting
+app.use('/api', apiLimiter); // Apply global limiter to all API routes
+app.use('/api/auth/login', authLimiter); // Apply strict limiter to login
+
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // API Routes
 app.use("/api/auth", authRoutes);
