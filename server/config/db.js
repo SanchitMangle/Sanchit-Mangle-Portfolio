@@ -16,7 +16,9 @@ const connectDB = async () => {
     }
 
     try {
-        const db = await mongoose.connect(`${process.env.MONGODB_URI}/portfolio-admin`);
+        const db = await mongoose.connect(`${process.env.MONGODB_URI}/portfolio-admin`, {
+            bufferCommands: false, // Critical for serverless to prevent timeouts
+        });
 
         isConnected = db.connections[0].readyState;
 

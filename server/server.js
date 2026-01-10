@@ -53,20 +53,32 @@ app.use(cors({
     credentials: true
 }));
 
+import { cacheMiddleware } from "./middleware/cacheMiddleware.js";
+
 // API Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/projects", projectRoutes);
-app.use("/api/skills", skillRoutes);
-app.use("/api/timeline", timelineRoutes);
-app.use("/api/profile", profileRoutes);
+app.use("/api/auth", authRoutes); // Auth should NOT be cached
+app.use("/api/projects", cacheMiddleware(300), projectRoutes); // Cache for 5 minutes
+app.use("/api/skills", cacheMiddleware(300), skillRoutes); // Cache for 5 minutes
+app.use("/api/timeline", cacheMiddleware(300), timelineRoutes); // Cache for 5 minutes
+app.use("/api/profile", cacheMiddleware(300), profileRoutes); // Cache for 5 minutes
 app.use("/api/upload", uploadRoutes);
-app.use("/api/audit-logs", auditLogRoutes);
+app.use("/api/audit-logs", auditLogRoutes); // Admin only, do not cache
 
 // Static folder for uploads
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.get("/", (req, res) => {
     res.send("API is running...");
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+    console.error("Unhandled Error:", err);
+    res.status(500).json({
+        message: "Internal Server Error",
+        error: err.message,
+        stack: process.env.NODE_ENV === 'production' ? null : err.stack
+    });
 });
 
 // Only run the server if we aren't in a serverless environment (Vercel exports the app)
