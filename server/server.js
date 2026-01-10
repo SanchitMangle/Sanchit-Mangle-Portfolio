@@ -39,7 +39,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: [
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5173",
+        process.env.CLIENT_URL, // Add your production frontend URL here
+    ].filter(Boolean), // Filter out undefined values
     credentials: true
 }));
 
@@ -59,4 +64,9 @@ app.get("/", (req, res) => {
     res.send("API is running...");
 });
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+// Only run the server if we aren't in a serverless environment (Vercel exports the app)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => console.log(`Server running on port ${port}`));
+}
+
+export default app;
