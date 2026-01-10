@@ -27,24 +27,28 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Security Configuration (Headers, Sanitization)
-configureSecurity(app);
-
-// Rate Limiting
-app.use('/api', apiLimiter); // Apply global limiter to all API routes
-app.use('/api/auth/login', authLimiter); // Apply strict limiter to login
-
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+// CORS Configuration - MUST be first
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5173",
-        process.env.CLIENT_URL,
-    ].filter(Boolean), // Filter out undefined values
+    origin: (origin, callback) => {
+        const allowedOrigins = [
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://127.0.0.1:5173",
+            "https://sanchit-mangle-portfolio-git-main-sanchitmangles-projects.vercel.app",
+            process.env.CLIENT_URL
+        ];
+
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            console.log("Blocked by CORS. Origin:", origin);
+            console.log("Allowed Origins:", allowedOrigins);
+            return callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
