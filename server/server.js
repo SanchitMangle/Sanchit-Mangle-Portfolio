@@ -53,16 +53,14 @@ app.use(cors({
     credentials: true
 }));
 
-import { cacheMiddleware } from "./middleware/cacheMiddleware.js";
-
 // API Routes
-app.use("/api/auth", authRoutes); // Auth should NOT be cached
-app.use("/api/projects", cacheMiddleware(300), projectRoutes); // Cache for 5 minutes
-app.use("/api/skills", cacheMiddleware(300), skillRoutes); // Cache for 5 minutes
-app.use("/api/timeline", cacheMiddleware(300), timelineRoutes); // Cache for 5 minutes
-app.use("/api/profile", cacheMiddleware(300), profileRoutes); // Cache for 5 minutes
+app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/skills", skillRoutes);
+app.use("/api/timeline", timelineRoutes);
+app.use("/api/profile", profileRoutes);
 app.use("/api/upload", uploadRoutes);
-app.use("/api/audit-logs", auditLogRoutes); // Admin only, do not cache
+app.use("/api/audit-logs", auditLogRoutes);
 
 // Static folder for uploads
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

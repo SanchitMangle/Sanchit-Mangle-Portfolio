@@ -10,7 +10,12 @@ export const getProjects = async (req, res) => {
         const projects = await Project.find({ isDeleted: { $ne: true } }).sort({ displayOrder: 1, createdAt: -1 });
         res.json(projects);
     } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+        console.error("Project Fetch Error:", error);
+        res.status(500).json({
+            message: "Server Error",
+            error: error.message,
+            stack: process.env.NODE_ENV === 'production' ? null : error.stack
+        });
     }
 };
 
