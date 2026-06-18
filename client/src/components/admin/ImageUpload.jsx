@@ -33,7 +33,7 @@ const ImageUpload = ({ value, onChange, label = "Upload Image" }) => {
         formData.append('file', file);
 
         try {
-            const token = localStorage.getItem('adminToken');
+            const token = localStorage.getItem('token');
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
